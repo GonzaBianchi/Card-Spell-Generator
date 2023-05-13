@@ -14,8 +14,8 @@ with open('spells_to_print.txt', 'r') as f:
 
 print(len(spells))
 
-b = False
 l = []
+s = []
 with open('spells_imprimir.csv', 'w') as f:
 	for n in spells:
 		n = n.strip()
@@ -43,15 +43,18 @@ with open('spells_imprimir.csv', 'w') as f:
 		row_csv = row_csv.replace("<br><br>", "<br>")
 		
 		l.append(row[0]+" "+row[1])
+		s.append(row_csv)
 		#print(repr(row_csv))
 
 		# write a row to the csv file
+	b = False
+	l = sorted(l)
+	s = sorted(s)
+	for i in s:
 		if b:
-			f.write("\n"+row_csv)
+			f.write("\n"+i)
 		else:
-			f.write(row_csv)
+			f.write(i)
 		b = True
-
-l = sorted(l)
-for i in l:
-	print(i)
+	for i in l:
+		print(i)
