@@ -1,12 +1,12 @@
 export default class Card {
 	constructor(data) {
-		this.level = data[0];
-		this.name = data[1];
-		this.type = data[2];
-		this.cast = data[3];
-		this.range = data[4];
-		this.components = data[5];
-		this.duration = data[6];
-		this.description = data[7];
+		this.level = data.level;
+		this.name = data.nombre;
+		this.type = data.school;
+		this.cast = data.castingTime;
+		this.range = data.range;
+		this.components = data.components;
+		this.duration = data.duration;
+		this.description = data.details;
 	}
 }
