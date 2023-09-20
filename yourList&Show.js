@@ -3,6 +3,8 @@ import CardHtml from './CardHtml.js';
 
 export async function spellsShow(spellList) {
 	const fileUrl = './dndspells.xlsx';
+	spellList.sort();
+	console.log(spellList);
   
 	try {
 	
@@ -20,14 +22,14 @@ export async function spellsShow(spellList) {
 		if(jsonData[j][1] == spellList[i]) {
 			const row = jsonData[j];
 			const spell = {
-			  level: row[0],
-			  nombre: row[1],
-			  school: row[2],
-			  castingTime: row[3],
-			  range: row[4],
-			  components: row[5],
-			  duration: row[6],
-			  details: row[7].replace("<br><br>", "<br>").replace("<br> <br>", "<br>").replace("’", "'").replace("\n", "<br>").replace("\n \n", "<br>").replace("—", "-")
+				level: row[0],
+				nombre: row[1],
+				school: row[2],
+				castingTime: row[3],
+				range: row[4],
+				components: row[5],
+				duration: row[6],
+				details: row[7].replace("<br><br>", "<br>").replace("<br> <br>", "<br>").replace("’", "'").replace("\n", "<br>").replace("\n \n", "<br>").replace("—", "-")
 		  };
 		  resultados.push(spell);
 		  break;
@@ -40,8 +42,8 @@ export async function spellsShow(spellList) {
 	return resultados;
 
 	} catch (error) {
-	console.error('Error al obtener el archivo:', error);
-	throw error;
+		console.error('Error al obtener el archivo:', error);
+		throw error;
 	}
 }
 
@@ -57,28 +59,28 @@ export async function returnSpells(setSpells) {
 	let hojaA4 = document.querySelector(".hojaA4");
   
 
-	const array = Array.from(setSpells);
 	try {
-	  const spellsObjects = await spellsShow(array);
-	  let cant = 0;
+		const array = Array.from(setSpells);
+	  	const spellsObjects = await spellsShow(array);
+	  	let cant = 0;
   
-	  spellsObjects.forEach(spell => {
-	let cartaAct = new Card(spell);
-	cant++;
-	if (cant == 10) {
-	  cant = 1;
-	  let hojaA4_newDiv = document.createElement("div");
-	  hojaA4_newDiv.classList.add("hojaA4");
-	  body.appendChild(hojaA4_newDiv);
-	  hojaA4_newDiv.style.background = "white";
-	  hojaA4 = hojaA4_newDiv;
-	  let cartaHtml = new CardHtml(cartaAct, hojaA4_newDiv);
-	} else {
-	  let cartaHtml = new CardHtml(cartaAct, hojaA4);
-	}
-	  });
+	  	spellsObjects.forEach(spell => {
+			let cartaAct = new Card(spell);
+			cant++;
+			if (cant == 10) {
+				cant = 1;
+				let hojaA4_newDiv = document.createElement("div");
+				hojaA4_newDiv.classList.add("hojaA4");
+				body.appendChild(hojaA4_newDiv);
+				hojaA4_newDiv.style.background = "white";
+				hojaA4 = hojaA4_newDiv;
+				let cartaHtml = new CardHtml(cartaAct, hojaA4_newDiv);
+			} else {
+				let cartaHtml = new CardHtml(cartaAct, hojaA4);
+			}
+	  	});
 	} catch (error) {
-	  console.error('Error en returnSpells:', error);
+	  	console.error('Error en returnSpells:', error);
 	}
   }
 
