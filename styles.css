@@ -8,53 +8,369 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Cambiar el grosor y el color de la barra de desplazamiento vertical */
+::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra de desplazamiento */
+    border-radius: 4px; /* Borde redondeado para la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color de la barra de desplazamiento */
+    border-radius: 4px; /* Borde redondeado para el "pulgar" de la barra de desplazamiento */
+}
+
+/* Cambiar el color del fondo de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color del fondo de la barra de desplazamiento */
+    border-radius: 4px; /* Borde redondeado para el área de fondo */
+}
+  
+
 body{
+    /* z-index: 1; */
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
+    background-color: #f1f1f1;
 }
 
 main{
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    height: 20%;
+    justify-content: space-around;
+    align-items: start;
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
 }
 
-#loadFileButton{
-    padding: .6em;
-    color: #99a8fd;
+.buscador{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 100%;
+}
+
+fieldset{
+    display: flex;
+    position: relative;
+    width: 43%;
+    height: 9%;
+    padding: .3em;
+    justify-content: start;
+    align-items: center;
+    border: none;
+}
+
+
+label{
+    position: absolute;
+}
+
+.spellFilter:not(:focus) ~ label, .spellFilter:not(:active) ~ label, .spellFilter:not(:hover) ~ label{
+    font-size: 1.3em;
+    top: 16px;
+    left: 10px;
+    transition: all .5s ease;
+}
+
+.spellFilter{
+    height: 60%;
+    width: 90%;
     font-size: 1em;
-    border-radius: .2em;
-    border: .1em solid black;
-    background-image: linear-gradient(to bottom, #ff0000, #ff5e00);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: .5px solid black;
+}
+
+.fa-magnifying-glass{
+    position: absolute;
+}
+
+.spellFilter:not(:focus) ~ .fa-magnifying-glass, .spellFilter:not(:active) ~ .fa-magnifying-glass, .spellFilter:not(:hover) ~ .fa-magnifying-glass{
+    top: 19px;
+    right: 44px;
+    transition: all .5s ease;
+}
+
+.spellFilter:focus, .spellFilter:active, .spellFilter:active, .spellFilter:hover{
+    outline: none;
+    border-bottom: 3px solid #777;
+}
+
+.spellFilter:focus ~ label, .spellFilter:active ~ label, .spellFilter:hover ~ label{
+    top: 4px;
+    left: 6px;
+    font-size: .6em;
+    transition: all .5s ease;
+}
+
+.spellFilter:focus ~ .fa-magnifying-glass, .spellFilter:active ~ .fa-magnifying-glass, .spellFilter:hover ~ .fa-magnifying-glass{
+    right: 21px;
+    top: 21px;
+    font-size: 1em;
+    transition: all .5s ease;
+}
+
+.active-label1{
+    top: 4px !important; 
+    left: 6px !important;
+    font-size: .6em !important;
+    transition: all .5s ease;
+}
+
+.active-label2{
+    right: 21px !important;
+    top: 21px !important;
+    font-size: 1em !important;
+    transition: all .5s ease;
+}
+
+.mainSpellList{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    overflow-y: scroll;
+    margin-top: 2em;
+}
+
+.mainSpellList .spellPlus{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    background-color: #d3d3d3;
+    border: 1px solid #000;
+    margin: .4em;
+    padding: .4em;
+}
+
+.mainSpellList i, .yourSpellList i{
+    color: #2a2a2a;
+}
+
+.spellPlus{
+    border-radius: .8em;
+}
+
+.spellPlus:hover, .spellPlus:focus{
     cursor: pointer;
 }
 
-#loadFileButton:hover{
-    transform: scale(1.1);
-    transition: .5s;
+.spellPlus .spell{
+    margin-left: .5em;
 }
 
-#loadFileButton:not(:hover){
-    transition: .5s;
+.list{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 100%;
 }
 
-#fileInput{
-    font-size: 1em;
-    color: rgb(46, 46, 45);
+.list h2{
+    padding: 0.3em;
+    height: 9%;
+    text-align: center;
 }
 
+.yourSpellList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: start;
+    width: 100%;
+    height: 77%;
+    list-style: none;
+    overflow-y: scroll;
+    margin-top: 2em;
+}
+
+.generateCards{
+    margin-top: .3em;
+    font-size: 1.3em;
+    border-radius: .6em;
+    height: 5%;
+    border: 1px solid #000;
+}
+
+.generateCards:hover, .generateCards:focus{
+    cursor: pointer;
+}
+
+.yourSpellX{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    background-color: #d3d3d3;
+    border: 1px solid #000;
+    margin: .4em;
+    padding: .4em;
+    border-radius: .8em;
+}
+
+.yourSpellX:hover, .yourSpellX:focus{
+    cursor: pointer;
+}
+
+.yourSpell{
+    margin-left: .5em;
+}
+
+.editSpellDescContainer{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 135px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #00000055;
+}
+
+.editDescSpell{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    margin: auto;
+    height: 55%;
+    width: 45%;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-animation-name: animarsuperior;
+    -webkit-animation-duration: 1s;
+    animation-name: animarsuperior;
+    animation-duration: 1s;
+    border-radius: .6em;
+    border: .6em solid #f5f5f5;
+}
+
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animarsuperior {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.topEditDescSpell{
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.editDescSpell h2{
+    color: #f5f5f5;
+}
+
+.editDescSpell .fa-circle-xmark{
+    position: absolute;
+    top: .3em;
+    right: .3em;
+    font-size: 1.7em;
+    color: #f5f5f5;
+}
+
+.fa-circle-xmark:hover{
+    cursor: pointer;
+    color: #777;
+}
+
+.midEditDescSpell{
+    padding: 1em;
+    height: 65%;
+    width: 80%;
+}
+
+.midEditDescSpell #spellDesc{
+    border: 3px solid #777;
+    padding: .2em;
+}
+
+.bottomEditDescSpell{
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+
+.updateSpell{
+    color: #ccc;
+    font-size: 1.2em;
+    padding: .4em;
+    border-radius: .6em;
+    border: 1px solid #f5f5f5;
+    background-color: transparent;
+}
+
+.updateSpell:not(:hover), .updateSpell:not(:focus), .updateSpell:not(:active){
+    transition: all .3s ease-out;
+    outline: none;
+}
+
+.updateSpell:hover,
+.updateSpell:focus, .updateSpell:active{
+    text-decoration: none;
+    cursor: pointer;
+    background: #ccc;
+    color: #000;
+    transition: all .2s ease-in;
+    border-color: #f5f5f5;
+    outline: none;
+}
+
+.close{
+    color: #ccc;
+    font-size: 1.2em;
+    margin-right: .7em;
+    padding: .4em;
+    border-radius: .6em;
+    background-color: transparent;
+    border: 1px solid #f5f5f5;
+}
+
+.close:not(:hover), .close:not(:focus), .close:not(:active){
+    outline: none;
+    transition: all .3s ease-out;
+}
+
+.close:hover,
+.close:focus, .close:active {
+    outline: none;
+    background: #ccc;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+#spellDesc{
+    resize: none;
+    height: 100%;
+    width: 100%;
+}
 
 .hojaA4{
-    justify-content: center;
-    align-items: center;
+    place-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     display: grid;
-    grid-template-columns: repeat(3, 6cm);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 9cm);
     min-height: 29.7cm;
     min-width: 21cm;
